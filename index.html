@@ -1,213 +1,245 @@
-<!DOCTYPE html>
+# Creating enhanced glassmorphism portfolio site files and zipping them for the user to download.
+import os, zipfile, shutil, textwrap, pathlib
+base = "/mnt/data/jazeer_site_glass"
+os.makedirs(base, exist_ok=True)
+
+html = r"""<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mohammed Jazeer — Product Support Engineer</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mohammed Jazeer — Product Support Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1: linear-gradient(135deg, rgba(20,20,40,1) 0%, rgba(8,10,25,1) 100%);
+  --glass: rgba(255,255,255,0.06);
+  --glass-2: rgba(255,255,255,0.04);
+  --accent1: rgba(142, 99, 255, 0.95);
+  --accent2: rgba(0, 210, 255, 0.95);
+  --muted: rgba(230,230,230,0.7);
+  --card-radius: 16px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  background: var(--bg1); color: #e9eef8; -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale; overflow-y:scroll;
+}
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+/* subtle radial gradient glow behind hero */
+.bg-glow{
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background: radial-gradient(800px 400px at 10% 20%, rgba(142,99,255,0.12), transparent 10%),
+              radial-gradient(600px 300px at 90% 80%, rgba(0,210,255,0.10), transparent 10%);
+  mix-blend-mode: screen; opacity:0.95;
+}
 
-  <style>
-    :root {
-      --bg: #0d0d0d;
-      --text: #e6e6e6;
-      --accent: #00e0ff;
-      --card: #1a1a1a;
-      --nav-bg: rgba(0,0,0,0.6);
-    }
-    
-    body.light {
-      --bg: #ffffff;
-      --text: #111;
-      --accent: #0066ff;
-      --card: #f2f2f2;
-      --nav-bg: rgba(255,255,255,0.6);
-    }
-    
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
+/* nav */
+nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:12px;align-items:center;padding:6px 10px;border-radius:999px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter: blur(8px);box-shadow:0 6px 30px rgba(0,0,0,0.6)}
+nav .logo{font-weight:700;padding:6px 10px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#061022}
+nav a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px 12px;border-radius:10px;transition:all .18s}
+nav a:hover{transform:translateY(-3px);color:white;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))}
 
-    /* NAVBAR */
-    nav {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      padding: 15px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      backdrop-filter: blur(10px);
-      background: var(--nav-bg);
-      z-index: 999;
-      animation: fadeIn 1s ease;
-    }
-    nav a {
-      color: var(--text);
-      text-decoration: none;
-      margin-right: 20px;
-      font-weight: 600;
-    }
-    
-    /* Toggle Button */
-    .toggle {
-      cursor: pointer;
-      padding: 8px 14px;
-      border-radius: 8px;
-      background: var(--accent);
-      color: #000;
-      font-weight: 600;
-    }
+/* layout */
+.container{position:relative;z-index:10;max-width:1100px;margin:90px auto;padding:40px 24px}
+.hero{display:grid;grid-template-columns: 1fr 380px;gap:30px;align-items:center;margin-bottom:28px}
+@media (max-width:900px){.hero{grid-template-columns:1fr; padding-bottom:6px}}
 
-    header {
-      padding: 120px 20px 70px;
-      text-align: center;
-      animation: fadeUp 1.2s ease;
-    }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-    h2 {
-      color: var(--accent);
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
+/* left hero card (glass) */
+.card-hero{
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border-radius:var(--card-radius); padding:32px;backdrop-filter: blur(10px) saturate(120%);
+  box-shadow: 0 8px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+h1{font-size:clamp(28px,4.2vw,44px);margin:0 0 6px;letter-spacing:-0.5px}
+h3{margin:0;font-weight:600;color:var(--accent2)}
+.lead{color:var(--muted);margin-top:14px;line-height:1.55}
 
-    /* Sections */
-    .section {
-      max-width: 950px;
-      margin: 40px auto;
-      padding: 25px;
-      background: var(--card);
-      border-radius: 14px;
-      animation: slideUp 1s ease;
-      box-shadow: 0 0 20px rgba(0,0,0,0.35);
-      transition: background 0.3s ease;
-    }
-    ul { padding-left: 20px; }
+/* actions */
+.actions{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:12px;
+  font-weight:700;border:none;cursor:pointer;text-decoration:none; color:#061022;background:linear-gradient(90deg,var(--accent2),var(--accent1));
+  box-shadow:0 8px 30px rgba(0,0,0,0.45), 0 2px 0 rgba(255,255,255,0.03); transition:transform .18s;
+}
+.btn.secondary{background:transparent;color:var(--muted);padding:10px 14px;border:1px solid rgba(255,255,255,0.04);backdrop-filter: blur(6px)}
+.btn:hover{transform:translateY(-4px)}
 
-    .download-btn {
-      display: inline-block;
-      padding: 12px 22px;
-      margin-top: 20px;
-      background: var(--accent);
-      color: #000;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 0 12px var(--accent);
-      transition: transform 0.2s ease;
-    }
-    .download-btn:hover {
-      transform: scale(1.05);
-    }
+/* right card - summary boxes */
+.side{
+  display:flex;flex-direction:column;gap:14px;
+}
+.profile-card{padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter: blur(6px);box-shadow:0 6px 24px rgba(0,0,0,0.5)}
+.avatar{width:72px;height:72px;border-radius:14px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#031726;font-size:22px}
+.meta{display:flex;gap:12px;align-items:center}
+.meta .info{font-size:14px;color:var(--muted)}
 
-    /* Animations */
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; }}
-    @keyframes fadeUp { from { transform: translateY(20px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
-    @keyframes slideUp { from { transform: translateY(40px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+/* sections */
+.section{margin-top:20px;padding:22px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter: blur(8px);box-shadow:0 8px 30px rgba(2,6,23,0.5)}
+.section h2{margin:0 0 10px;color:var(--accent1);font-size:18px}
 
-    /* Responsive */
-    @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
-      .section { padding: 18px; }
-    }
-  </style>
+/* skills grid */
+.skills{display:flex;flex-wrap:wrap;gap:10px}
+.skill{padding:10px 12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));font-weight:600;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
+
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (max-width:900px){.projects{grid-template-columns:1fr}}
+.project{padding:14px;border-radius:12px;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.02)}
+.project h4{margin:0 0 8px}
+.project p{margin:0;color:var(--muted);font-size:14px}
+
+/* footer */
+footer{margin:40px auto 80px;text-align:center;color:rgba(230,230,230,0.55)}
+
+/* subtle floating accents */
+.float-accent{position:absolute;border-radius:50%;filter:blur(40px);opacity:0.18;pointer-events:none}
+.accent1{width:220px;height:220px;right:-60px;top:-40px;background:linear-gradient(180deg,var(--accent1),transparent)}
+.accent2{width:150px;height:150px;left:-50px;bottom:-50px;background:linear-gradient(180deg,var(--accent2),transparent)}
+
+/* small responsive tweaks */
+@media (max-width:600px){nav{left:12px;transform:none} .hero{gap:18px} .side{order:2} .card-hero{order:1} .container{padding:18px} .avatar{width:64px;height:64px}}
+
+/* reveal animations (simple) */
+[data-reveal]{opacity:0;transform:translateY(18px);transition:all .7s cubic-bezier(.2,.9,.3,1);will-change:opacity,transform}
+[data-reveal].visible{opacity:1;transform:none}
+</style>
 </head>
 <body>
+<div class="bg-glow" aria-hidden></div>
 
-<!-- NAVBAR -->
 <nav>
-  <div style="font-weight:700; font-size:1.1rem;">MJ</div>
-  <div>
-    <a href="#skills">Skills</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-  </div>
-  <div class="toggle" id="themeToggle">Light Mode</div>
+  <div class="logo">MJ</div>
+  <a href="#skills">Skills</a>
+  <a href="#experience">Experience</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
 </nav>
 
-<header>
-  <h1>Mohammed Jazeer</h1>
-  <h2>Product Support Engineer</h2>
-  <a class="download-btn" href="Mohammed_Jazeer_Resume.pdf" download>Download Resume</a>
-</header>
+<main class="container">
+  <section class="hero" aria-label="Hero">
+    <div class="card-hero" data-reveal>
+      <h1>Mohammed Jazeer</h1>
+      <h3>Product Support Engineer — API & Conversational AI</h3>
+      <p class="lead">I help companies diagnose, debug and stabilize real-time communications and API systems — voice, SMS, Webhooks, and AI-powered call integrations. 6+ years solving production incidents and improving product reliability.</p>
 
-<div id="profile" class="section">
-  <h2>Profile</h2>
-  <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
-    <img src="your-photo.jpg" alt="Mohammed Jazeer" style="width:140px;height:140px;border-radius:14px;object-fit:cover;border:2px solid rgba(255,255,255,0.1)">
-    <div>
-      <p>Results-driven Product Support Engineer with 6+ years of experience in troubleshooting, diagnostics, technical support, and customer success across global clients.</p>
-      <p><strong>Phone:</strong> +91 80127 44085<br>
-         <strong>Email:</strong> jasirmohamad@gmail.com<br>
-         <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mohammed-jazeer" target="_blank" style="color:var(--accent);text-decoration:none">mohammed-jazeer</a>
-      </p>
+      <div class="actions">
+        <a class="btn" href="Mohammed_Jazeer_Resume.pdf" download>Download Resume</a>
+        <a class="btn secondary" href="mailto:jasirmohamad@gmail.com">Email Me</a>
+        <a class="btn secondary" href="https://github.com/Jazeer" target="_blank">Github</a>
+        <a class="btn secondary" href="https://www.linkedin.com/in/mohammed-jazeer" target="_blank">LinkedIn</a>
+      </div>
+
+      <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+        <div style="padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);font-weight:700">Based in Calicut, Kerala</div>
+        <div style="padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);font-weight:700">Open to roles — Remote/Hybrid</div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div id="skills" class="section">
-  <h2>Skills</h2>
-  <ul>
-    <li>Databases: Kibana, SQL, Athena, Redshift, Redis</li>
-    <li>AI Tools: OpenAI, ElevenLabs, Deepgram</li>
-    <li>APIs: REST API, XML/SSML</li>
-    <li>Ticketing Tools: Zendesk, Zoho Desk, JIRA</li>
-    <li>Platforms: Salesforce, Zoho CRM, HubSpot</li>
-    <li>Operating Systems: Windows, macOS, Ubuntu</li>
-  </ul>
-</div>
+    <aside class="side" data-reveal>
+      <div class="profile-card">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="avatar">MJ</div>
+          <div>
+            <div style="font-weight:700">Mohammed Jazeer</div>
+            <div class="info" style="color:var(--muted);font-size:13px">Product Support Engineer</div>
+          </div>
+        </div>
 
-<div id="experience" class="section">
-  <h2>Professional Experience</h2>
-  <h3>Product Support Engineer — Plivo (2022–Present)</h3>
-  <ul>
-    <li>Supported SMS, Voice, WhatsApp API, Verify API, SIP Trunking.</li>
-    <li>Debugged client code in Python, Java, PHP for API integration.</li>
-    <li>Resolved network issues (TCP/UDP, TLS).</li>
-    <li>Served as SME for Voice; created SOPs and internal documentation.</li>
-  </ul>
-  <h3>Technical Support Engineer — Bevywise Networks (2021–2022)</h3>
-  <ul>
-    <li>Supported IoT platforms and MQTT systems.</li>
-    <li>Delivered demos, onboarding, customer integration help.</li>
-  </ul>
-</div>
+        <div style="margin-top:12px;font-size:13px;color:var(--muted)">
+          <div><strong>Email:</strong> jasirmohamad@gmail.com</div>
+          <div><strong>Phone:</strong> +91 8012744085</div>
+          <div><strong>GitHub:</strong> https://github.com/Jazeer</div>
+        </div>
+      </div>
 
-<div id="projects" class="section">
-  <h2>Projects</h2>
-  <ul>
-    <li><strong>RTP PCAP IP Masking Utility:</strong> Python tool using Scapy for privacy-compliant PCAP sharing.</li>
-    <li><strong>ElevenLabs Conversational AI + Plivo Integration:</strong> Real-time AI-agent calling using Plivo Voice API.</li>
-  </ul>
-</div>
+      <div class="profile-card" style="margin-top:12px">
+        <div style="font-weight:700;margin-bottom:8px">Quick Stats</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div style="padding:8px 10px;border-radius:10px;background:linear-gradient(90deg,var(--accent2),var(--accent1));font-weight:700;color:#061022">6+ yrs</div>
+          <div style="padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);">API Integrations</div>
+          <div style="padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);">Voice & SMS</div>
+        </div>
+      </div>
+    </aside>
+  </section>
 
-<div class="section">
-  <h2>Education</h2>
-  <p>B.E. Computer Science — Francis Xavier Engineering College (2018)</p>
-</div>
+  <section id="skills" class="section" data-reveal>
+    <h2>Skills</h2>
+    <div class="skills" style="margin-top:12px">
+      <div class="skill">Kibana</div>
+      <div class="skill">OpenSearch</div>
+      <div class="skill">SQL / pgAdmin</div>
+      <div class="skill">Redis / AWS</div>
+      <div class="skill">OpenAI / LLMs</div>
+      <div class="skill">ElevenLabs</div>
+      <div class="skill">Postman / REST API</div>
+      <div class="skill">Zendesk / JIRA / Confluence</div>
+      <div class="skill">VoIP / SIP / RTP</div>
+      <div class="skill">Python / Scapy</div>
+      <div class="skill">SDK</div>
+    </div>
+  </section>
 
-<footer style="text-align:center; padding:40px; opacity:0.6;">
-  © Mohammed Jazeer
-</footer>
+  <section id="experience" class="section" data-reveal>
+    <h2>Professional Experience</h2>
+    <div style="margin-top:12px">
+      <h3 style="margin:0 0 6px">Product Support Engineer — Plivo (05/2022–Present)</h3>
+      <p style="margin:0;color:var(--muted)">Supported SMS, Voice, WhatsApp API, Verify API, SIP Trunking, PHLO, and AI audio streaming. Debugged integrations, performed root-cause analysis, and created SOPs for cross-team incident handling.</p>
 
-<!-- LIGHT/DARK MODE TOGGLE SCRIPT -->
+      <h3 style="margin:14px 0 6px">Technical Support Engineer — Bevywise Networks (02/2021–05/2022)</h3>
+      <p style="margin:0;color:var(--muted)">Managed IoT/MQTT platform support, demos, onboarding, and customer integrations. Collaborated with engineering for deployments and troubleshooting.</p>
+    </div>
+  </section>
+
+  <section id="projects" class="section" data-reveal>
+    <h2>Projects</h2>
+    <div class="projects" style="margin-top:12px">
+      <article class="project">
+        <h4>RTP PCAP IP Masking Utility</h4>
+        <p>Python utility using Scapy to mask IPs in RTP .pcap files and keep files Wireshark-compatible. Built SOPs for safe support sharing.</p>
+      </article>
+      <article class="project">
+        <h4>ElevenLabs Conversational AI + Plivo Integration</h4>
+        <p>Bi-directional audio streaming using Plivo Voice API and ElevenLabs. Built FastAPI WebSocket server and automated provisioning scripts.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact" class="section" data-reveal>
+    <h2>Contact</h2>
+    <p style="color:var(--muted)">Interested in working together or need help with integrations? Reach out — I typically reply within a day.</p>
+    <form action="https://formsubmit.co/jasirmohamad@gmail.com" method="POST" style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+      <input type="hidden" name="_subject" value="Portfolio Contact — From Website">
+      <input name="name" required placeholder="Your name" style="flex:1;min-width:180px;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--muted)">
+      <input name="email" required placeholder="Email" style="flex:1;min-width:180px;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--muted)">
+      <textarea name="message" required placeholder="Message" style="width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--muted);min-height:100px;margin-top:8px"></textarea>
+      <button class="btn" type="submit" style="margin-top:6px">Send Message</button>
+    </form>
+  </section>
+
+  <div style="height:20px"></div>
+  <footer>© Mohammed Jazeer — Product Support Engineer • <span style="color:var(--muted)">Kozhikode, Kerala</span></footer>
+</main>
+
+<div class="float-accent accent1" aria-hidden></div>
+<div class="float-accent accent2" aria-hidden></div>
+
 <script>
-  const toggle = document.getElementById('themeToggle');
-  toggle.addEventListener('click', () => {
-    document.body.classList.toggle('light');
-    toggle.textContent = document.body.classList.contains('light') ? 'Dark Mode' : 'Light Mode';
+// simple scroll reveal
+const els = document.querySelectorAll('[data-reveal]');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
   });
-</script>
+},{threshold:0.12});
+els.forEach(e => obs.observe(e));
 
+// small theme preference: detect prefers-color-scheme and add subtle light toggle (kept dark glass by default)
+</script>
 </body>
 </html>
+"""
+
