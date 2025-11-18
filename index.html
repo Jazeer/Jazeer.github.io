@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mohammed Jazeer — Product Support Engineer</title>
+
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg: #0d0d0d;
@@ -13,6 +16,7 @@
       --card: #1a1a1a;
       --nav-bg: rgba(0,0,0,0.6);
     }
+    
     body.light {
       --bg: #ffffff;
       --text: #111;
@@ -20,6 +24,7 @@
       --card: #f2f2f2;
       --nav-bg: rgba(255,255,255,0.6);
     }
+    
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
@@ -28,6 +33,8 @@
       line-height: 1.6;
       transition: background 0.3s ease, color 0.3s ease;
     }
+
+    /* NAVBAR */
     nav {
       position: fixed;
       width: 100%;
@@ -47,6 +54,8 @@
       margin-right: 20px;
       font-weight: 600;
     }
+    
+    /* Toggle Button */
     .toggle {
       cursor: pointer;
       padding: 8px 14px;
@@ -55,6 +64,7 @@
       color: #000;
       font-weight: 600;
     }
+
     header {
       padding: 120px 20px 70px;
       text-align: center;
@@ -70,6 +80,8 @@
       font-size: 1.4rem;
       font-weight: 600;
     }
+
+    /* Sections */
     .section {
       max-width: 950px;
       margin: 40px auto;
@@ -81,6 +93,7 @@
       transition: background 0.3s ease;
     }
     ul { padding-left: 20px; }
+
     .download-btn {
       display: inline-block;
       padding: 12px 22px;
@@ -93,10 +106,16 @@
       box-shadow: 0 0 12px var(--accent);
       transition: transform 0.2s ease;
     }
-    .download-btn:hover { transform: scale(1.05); }
+    .download-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Animations */
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; }}
     @keyframes fadeUp { from { transform: translateY(20px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
     @keyframes slideUp { from { transform: translateY(40px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+
+    /* Responsive */
     @media (max-width: 600px) {
       h1 { font-size: 2.2rem; }
       .section { padding: 18px; }
@@ -105,6 +124,7 @@
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav>
   <div style="font-weight:700; font-size:1.1rem;">MJ</div>
   <div>
@@ -123,7 +143,16 @@
 
 <div id="profile" class="section">
   <h2>Profile</h2>
-  <p>Results-driven Product Support Engineer with 6+ years of experience in troubleshooting, diagnostics, technical support, and customer success across global clients.</p>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+    <img src="your-photo.jpg" alt="Mohammed Jazeer" style="width:140px;height:140px;border-radius:14px;object-fit:cover;border:2px solid rgba(255,255,255,0.1)">
+    <div>
+      <p>Results-driven Product Support Engineer with 6+ years of experience in troubleshooting, diagnostics, technical support, and customer success across global clients.</p>
+      <p><strong>Phone:</strong> +91 80127 44085<br>
+         <strong>Email:</strong> jasirmohamad@gmail.com<br>
+         <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mohammed-jazeer" target="_blank" style="color:var(--accent);text-decoration:none">mohammed-jazeer</a>
+      </p>
+    </div>
+  </div>
 </div>
 
 <div id="skills" class="section">
@@ -147,7 +176,6 @@
     <li>Resolved network issues (TCP/UDP, TLS).</li>
     <li>Served as SME for Voice; created SOPs and internal documentation.</li>
   </ul>
-
   <h3>Technical Support Engineer — Bevywise Networks (2021–2022)</h3>
   <ul>
     <li>Supported IoT platforms and MQTT systems.</li>
@@ -172,6 +200,7 @@
   © Mohammed Jazeer
 </footer>
 
+<!-- LIGHT/DARK MODE TOGGLE SCRIPT -->
 <script>
   const toggle = document.getElementById('themeToggle');
   toggle.addEventListener('click', () => {
