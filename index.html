@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -87,6 +86,14 @@ h3{margin:0;font-weight:600;color:var(--accent2)}
 .project h4{margin:0 0 8px}
 .project p{margin:0;color:var(--muted);font-size:14px}
 
+/* experience items */
+.exp-item{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,0.03)}
+.exp-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.exp-item h3{margin:0 0 4px;font-size:16px;color:#e9eef8}
+.exp-item .exp-meta{color:var(--accent2);font-size:13px;margin-bottom:8px;font-weight:600}
+.exp-item ul{margin:8px 0 0 0;padding-left:20px;color:var(--muted);font-size:14px;line-height:1.6}
+.exp-item ul li{margin-bottom:4px}
+
 /* footer */
 footer{margin:40px auto 80px;text-align:center;color:rgba(230,230,230,0.55)}
 
@@ -119,7 +126,7 @@ footer{margin:40px auto 80px;text-align:center;color:rgba(230,230,230,0.55)}
     <div class="card-hero" data-reveal>
       <h1>Mohammed Jazeer</h1>
       <h3>Product Support Engineer — API & Conversational AI</h3>
-      <p class="lead">I help companies diagnose, debug and stabilize real-time communications and API systems — voice, SMS, Webhooks, and AI-powered call integrations. 6+ years solving production incidents and improving product reliability.</p>
+      <p class="lead">Product Support Engineer with 6+ years delivering tier 1/2/3 technical support for SaaS/CPaaS platforms and real-time communications APIs. Expert in root cause analysis, API debugging, and incident management across Voice, SMS, and AI-powered solutions.</p>
 
       <div class="actions">
         <a class="btn" href="Mohammed_Jazeer_Resume.pdf" download>Download Resume</a>
@@ -147,7 +154,8 @@ footer{margin:40px auto 80px;text-align:center;color:rgba(230,230,230,0.55)}
         <div style="margin-top:12px;font-size:13px;color:var(--muted)">
           <div><strong>Email:</strong> jasirmohamad@gmail.com</div>
           <div><strong>Phone:</strong> +91 8012744085</div>
-          <div><strong>GitHub:</strong> https://github.com/Jazeer</div>
+          <div><strong>GitHub:</strong> github.com/Jazeer</div>
+          <div><strong>Portfolio:</strong> jazeer.github.io</div>
         </div>
       </div>
 
@@ -155,8 +163,8 @@ footer{margin:40px auto 80px;text-align:center;color:rgba(230,230,230,0.55)}
         <div style="font-weight:700;margin-bottom:8px">Quick Stats</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <div style="padding:8px 10px;border-radius:10px;background:linear-gradient(90deg,var(--accent2),var(--accent1));font-weight:700;color:#061022">6+ yrs</div>
-          <div style="padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);">API Integrations</div>
-          <div style="padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);">Voice & SMS</div>
+          <div style="padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);">Tier 1/2/3 Support</div>
+          <div style="padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);">Voice & SMS APIs</div>
         </div>
       </div>
     </aside>
@@ -165,28 +173,69 @@ footer{margin:40px auto 80px;text-align:center;color:rgba(230,230,230,0.55)}
   <section id="skills" class="section" data-reveal>
     <h2>Skills</h2>
     <div class="skills" style="margin-top:12px">
-      <div class="skill">Kibana</div>
-      <div class="skill">OpenSearch</div>
-      <div class="skill">SQL / pgAdmin</div>
-      <div class="skill">Redshift / AWS</div>
-      <div class="skill">OpenAI / LLMs</div>
-      <div class="skill">ElevenLabs</div>
-      <div class="skill">Postman / REST API</div>
-      <div class="skill">Zendesk / JIRA / Confluence</div>
+      <div class="skill">Root Cause Analysis</div>
+      <div class="skill">Incident Management</div>
+      <div class="skill">Log Analysis</div>
       <div class="skill">VoIP / SIP / RTP</div>
+      <div class="skill">API Debugging</div>
+      <div class="skill">REST API / Webhooks</div>
+      <div class="skill">Kibana / OpenSearch</div>
+      <div class="skill">SQL / pgAdmin</div>
+      <div class="skill">Elasticsearch / Redis</div>
+      <div class="skill">AWS (Athena, QuickSight, Redshift)</div>
+      <div class="skill">OpenAI / ChatGPT</div>
+      <div class="skill">ElevenLabs AI</div>
+      <div class="skill">Deepgram</div>
+      <div class="skill">TTS/STT Solutions</div>
       <div class="skill">Python / Scapy</div>
-      <div class="skill">Browser SDK</div>
+      <div class="skill">FastAPI</div>
+      <div class="skill">Postman</div>
+      <div class="skill">Zendesk / JIRA / Confluence</div>
+      <div class="skill">Salesforce CRM</div>
+      <div class="skill">Zoho CRM / HubSpot</div>
+      <div class="skill">TCP/UDP / SSL/TLS</div>
+      <div class="skill">XML / SSML</div>
+      <div class="skill">PHLO / SIP Trunking</div>
     </div>
   </section>
 
   <section id="experience" class="section" data-reveal>
     <h2>Professional Experience</h2>
     <div style="margin-top:12px">
-      <h3 style="margin:0 0 6px">Product Support Engineer — Plivo (05/2022–Present)</h3>
-      <p style="margin:0;color:var(--muted)">Supported SMS, Voice, WhatsApp API, Verify API, SIP Trunking, PHLO, and AI audio streaming. Debugged integrations, performed root-cause analysis, and created SOPs for cross-team incident handling.</p>
+      <div class="exp-item">
+        <h3>Product Support Engineer — Plivo Communications</h3>
+        <div class="exp-meta">05/2022 – Present | Bangalore, India</div>
+        <p style="margin:4px 0 0;color:var(--muted);font-size:14px">Supporting SMS, Voice, WhatsApp API, Verify API, SIP Trunking, PHLO, and AI audio streaming for global clients.</p>
+        <ul>
+          <li>Provided Tier 1/2 technical support troubleshooting call quality, SMS delivery, API failures, and product escalations</li>
+          <li>Served as Subject Matter Expert (SME) for Voice, collaborating with Product, Operations, and Engineering teams</li>
+          <li>Debugged client code (Python, Java, PHP) and hosted test environments for call flow validation</li>
+          <li>Authored internal technical documentation and SOPs to enhance team knowledge and operational efficiency</li>
+          <li>Led team handoffs and weekly sync calls with engineering to address support gaps and drive collaboration</li>
+        </ul>
+      </div>
 
-      <h3 style="margin:14px 0 6px">Technical Support Engineer — Bevywise Networks (02/2021–05/2022)</h3>
-      <p style="margin:0;color:var(--muted)">Managed IoT/MQTT platform support, demos, onboarding, and customer integrations. Collaborated with engineering for deployments and troubleshooting.</p>
+      <div class="exp-item">
+        <h3>Technical Support Engineer — Bevywise Networks LLP</h3>
+        <div class="exp-meta">02/2021 – 05/2022 | Tirunelveli, India</div>
+        <p style="margin:4px 0 0;color:var(--muted);font-size:14px">Managed IoT/MQTT platform support, demos, onboarding, and customer integrations.</p>
+        <ul>
+          <li>Delivered pre-sales and post-sales technical support including demos, onboarding, and technical queries</li>
+          <li>Led and trained a 2-member support team to handle priority tickets efficiently</li>
+          <li>Worked with Azure IoT and AWS IoT platforms, analyzing IoT data logs for troubleshooting</li>
+          <li>Coordinated between clients and development teams for implementation, testing, and deployment</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <h3>Technical Advisor — [24]7.ai</h3>
+        <div class="exp-meta">2018 – 2020 | Bangalore, India</div>
+        <ul>
+          <li>Provided technical support and customer service for Overstock and Optus processes</li>
+          <li>Processed outbound technical support calls 20% faster than team average</li>
+          <li>Achieved top 1–2 rankings in monthly team metrics including cases handled and CSAT scores</li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -195,18 +244,22 @@ footer{margin:40px auto 80px;text-align:center;color:rgba(230,230,230,0.55)}
     <div class="projects" style="margin-top:12px">
       <article class="project">
         <h4>RTP PCAP IP Masking Utility</h4>
-        <p>Python utility using Scapy to mask IPs in RTP .pcap files and keep files Wireshark-compatible. Built SOPs for safe support sharing.</p>
+        <p style="margin-bottom:8px"><strong>Tech:</strong> Python, Scapy, Wireshark</p>
+        <p>Developed Python utility to anonymize sensitive IPs in RTP .pcap files for secure sharing with carriers and internal teams. Implemented checksum recalculations and created SOPs for safe network capture handling.</p>
+        <p style="margin-top:8px;color:var(--accent2);font-weight:600">Impact: 100% data privacy compliance while enabling faster resolution of carrier voice quality issues</p>
       </article>
       <article class="project">
-        <h4>ElevenLabs Conversational AI + Plivo Integration</h4>
-        <p>Bi-directional audio streaming using Plivo Voice API and ElevenLabs. Built FastAPI WebSocket server and automated provisioning scripts.</p>
+        <h4>ElevenLabs Conversational AI Integration with Plivo Voice API</h4>
+        <p style="margin-bottom:8px"><strong>Tech:</strong> FastAPI, WebSocket, Python, Plivo API</p>
+        <p>Designed bi-directional audio streaming solution connecting ElevenLabs AI to live calls. Built FastAPI WebSocket server, configured TTS/STT formats, and automated provisioning workflows.</p>
+        <p style="margin-top:8px;color:var(--accent2);font-weight:600">Impact: Enabled human-like AI voice agents with <500ms latency, expanding Plivo's AI capabilities</p>
       </article>
     </div>
   </section>
 
   <section id="contact" class="section" data-reveal>
     <h2>Contact</h2>
-    <p style="color:var(--muted)">Interested in working together > Reach out</p>
+    <p style="color:var(--muted)">Interested in working together? Reach out</p>
     <form action="https://formsubmit.co/jasirmohamad@gmail.com" method="POST" style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
       <input type="hidden" name="_subject" value="Portfolio Contact — From Website">
       <input name="name" required placeholder="Your name" style="flex:1;min-width:180px;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--muted)">
@@ -232,10 +285,6 @@ const obs = new IntersectionObserver(entries => {
   });
 },{threshold:0.12});
 els.forEach(e => obs.observe(e));
-
-// small theme preference: detect prefers-color-scheme and add subtle light toggle (kept dark glass by default)
 </script>
 </body>
 </html>
-"""
-
