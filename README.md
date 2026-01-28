@@ -1,0 +1,1 @@
+Product Support Engineer with 6+ years delivering tier 1/2/3 technical support for SaaS/CPaaS platforms and real-time communications APIs. Expert in root cause analysis, API debugging, and incident management across Voice, SMS, and AI-powered solutions.
